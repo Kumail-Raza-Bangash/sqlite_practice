@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sqlite_practice_01/crud_button.dart';
 import 'package:sqlite_practice_01/db_handler.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,34 +14,42 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        centerTitle: true,
         title: const Text("SQLite Database"),
       ),
       body: Center(
-        child: Container(
-          height: 50,
-          width: 150,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: GestureDetector(
-            onTap: () async {
-              await DbHandler().insertData(3, "Yazdan", 19);
-              final data = await DbHandler().fetchtData();
-              if (kDebugMode) {
-                print(data);
-              }
-            },
-            child: const Center(
-              child: Text(
-                "Add",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 10),
+            CRUDButton(
+              buttonName: 'Create',
+              onTap: () async {
+                await DbHandler().insertData(5, "Ashtar", 9);
+              },
             ),
-          ),
+            const SizedBox(height: 10),
+            CRUDButton(
+              buttonName: 'Read',
+              onTap: () async {
+                final data = await DbHandler().fetchtData();
+                print(data);
+              },
+            ),
+            const SizedBox(height: 10),
+            CRUDButton(
+              buttonName: 'Update',
+              onTap: () {},
+            ),
+            const SizedBox(height: 10),
+            CRUDButton(
+              buttonName: 'Delete',
+              onTap: () {},
+            ),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );
