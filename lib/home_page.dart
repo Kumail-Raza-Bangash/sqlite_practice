@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqlite_practice_01/crud_button.dart';
 import 'package:sqlite_practice_01/db_handler.dart';
+import 'package:sqlite_practice_01/model_class.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,7 +28,13 @@ class _HomePageState extends State<HomePage> {
             CRUDButton(
               buttonName: 'Create',
               onTap: () async {
-                await DbHandler().insertData(9, "Ali", 7);
+                await DbHandler().insertData(
+                  ModelClass(
+                    id: 1,
+                    name: 'Alyan',
+                    age: 13,
+                  ),
+                );
               },
             ),
             const SizedBox(height: 10),
@@ -35,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               buttonName: 'Read',
               onTap: () async {
                 final data = await DbHandler().fetchtData();
-                print(data);
+                print(data[0].name);
               },
             ),
             const SizedBox(height: 10),
@@ -43,12 +50,11 @@ class _HomePageState extends State<HomePage> {
               buttonName: 'Update',
               onTap: () async {
                 await DbHandler().updateData(
-                  1,
-                  {
-                    'id': 1,
-                    "name": "Alyan",
-                    "age": 11,
-                  },
+                  ModelClass(
+                    id: 1,
+                    name: 'Safeen',
+                    age: 17,
+                  ),
                 );
                 print("data Updated");
               },

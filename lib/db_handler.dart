@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqlite_practice_01/model_class.dart';
 
 class DbHandler {
   Database? _database;
@@ -33,21 +34,16 @@ class DbHandler {
   }
 
   // Create DATA in DATABASE
-  insertData(int id, String name, int age) async {
-    Map<String, dynamic> map = {
-      'id': id,
-      'name': name,
-      'age': age,
-    };
+  insertData(ModelClass modelClass) async {
     Database? db = await database;
-    db!.insert('DatabaseTable', map);
+    db!.insert('DatabaseTable', modelClass.toMap());
   }
 
   // Fetch or Read DATABASE
   fetchtData() async {
     Database? db = await database;
-    final list = db!.query('DatabaseTable');
-    return list;
+    final list = await db!.query('DatabaseTable');
+    return list.map((map) => ModelClass.fromMap(map)).toList();
   }
 
   // Delete DATABASE
@@ -61,13 +57,13 @@ class DbHandler {
   }
 
   // Delete DATABASE
-  updateData(int id, Map<String, dynamic> data) async {
+  updateData(ModelClass modelClass) async {
     Database? db = await database;
     await db!.update(
       'DatabaseTable',
-      data,
+      modelClass.toMap(),
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [modelClass.id],
     );
   }
 }
