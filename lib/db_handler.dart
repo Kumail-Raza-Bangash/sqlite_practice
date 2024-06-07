@@ -33,9 +33,14 @@ class DbHandler {
   }
 
   // Create DATABASE
-  insertData() async {
+  insertData(int id, String name, int age) async {
+    Map<String, dynamic> map = {
+      'id': id,
+      'name': name,
+      'age': age,
+    };
     Database? db = await database;
-    db!.insert('DatabaseTable', {'id': 1, 'name': 'Kumail', 'age': 18});
+    db!.insert('DatabaseTable', map);
   }
 
   // Fetch or Read DATABASE
