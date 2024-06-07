@@ -11,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +27,29 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: "Name"),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: ageController,
+                decoration: const InputDecoration(hintText: "age"),
+              ),
+            ),
+            const SizedBox(height: 10),
             CRUDButton(
-              buttonName: 'Create',
+              buttonName: 'Insert Data',
               onTap: () async {
                 await DbHandler().insertData(
                   ModelClass(
-                    id: 1,
-                    name: 'Alyan',
-                    age: 13,
+                    name: nameController.text,
+                    age: int.parse(ageController.text),
                   ),
                 );
               },

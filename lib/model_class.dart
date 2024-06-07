@@ -1,10 +1,10 @@
 class ModelClass {
-  final int id;
+  final int? id;
   final String name;
   final int age;
 
   ModelClass({
-    required this.id,
+    this.id,
     required this.name,
     required this.age,
   });
