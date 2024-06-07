@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             CRUDButton(
               buttonName: 'Create',
               onTap: () async {
-                await DbHandler().insertData(7, "Ashtar", 9);
+                await DbHandler().insertData(9, "Ali", 7);
               },
             ),
             const SizedBox(height: 10),
@@ -41,8 +41,16 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             CRUDButton(
               buttonName: 'Update',
-              onTap: () {
-                print("click");
+              onTap: () async {
+                await DbHandler().updateData(
+                  1,
+                  {
+                    'id': 1,
+                    "name": "Alyan",
+                    "age": 11,
+                  },
+                );
+                print("data Updated");
               },
             ),
             const SizedBox(height: 10),
