@@ -16,23 +16,31 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("SQLite Database"),
       ),
-      body: Container(
-        height: 50,
-        width: 150,
-        decoration: BoxDecoration(
-          color: Colors.greenAccent,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: GestureDetector(
-          onTap: () async {
-            await DbHandler().insertData(1, "Safeen", 17);
-            final data = await DbHandler().fetchtData();
-            if (kDebugMode) {
-              print(data);
-            }
-          },
-          child: const Center(
-            child: Text("Add"),
+      body: Center(
+        child: Container(
+          height: 50,
+          width: 150,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: GestureDetector(
+            onTap: () async {
+              await DbHandler().insertData(3, "Yazdan", 19);
+              final data = await DbHandler().fetchtData();
+              if (kDebugMode) {
+                print(data);
+              }
+            },
+            child: const Center(
+              child: Text(
+                "Add",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
         ),
       ),
