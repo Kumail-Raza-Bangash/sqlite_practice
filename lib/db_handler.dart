@@ -32,7 +32,7 @@ class DbHandler {
     return _database;
   }
 
-  // Create DATABASE
+  // Create DATA in DATABASE
   insertData(int id, String name, int age) async {
     Map<String, dynamic> map = {
       'id': id,
@@ -48,5 +48,15 @@ class DbHandler {
     Database? db = await database;
     final list = db!.query('DatabaseTable');
     return list;
+  }
+
+  // Delete DATABASE
+  deleteData(int id) async {
+    Database? db = await database;
+    await db!.delete(
+      'DatabaseTable',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

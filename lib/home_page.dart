@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             CRUDButton(
               buttonName: 'Create',
               onTap: () async {
-                await DbHandler().insertData(6, "Ashtar", 9);
+                await DbHandler().insertData(7, "Ashtar", 9);
               },
             ),
             const SizedBox(height: 10),
@@ -41,12 +41,17 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             CRUDButton(
               buttonName: 'Update',
-              onTap: () {},
+              onTap: () {
+                print("click");
+              },
             ),
             const SizedBox(height: 10),
             CRUDButton(
               buttonName: 'Delete',
-              onTap: () {},
+              onTap: () async {
+                await DbHandler().deleteData(2);
+                print("data Deleted");
+              },
             ),
             const SizedBox(height: 10),
           ],
