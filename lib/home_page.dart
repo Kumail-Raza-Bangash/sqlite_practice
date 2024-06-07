@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqlite_practice_01/crud_button.dart';
+import 'package:sqlite_practice_01/data_page.dart';
 import 'package:sqlite_practice_01/db_handler.dart';
 import 'package:sqlite_practice_01/model_class.dart';
 
@@ -27,63 +28,102 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 10),
+
+            // Text Field
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(hintText: "Name"),
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: nameController,
+                    decoration: const InputDecoration(hintText: "Name"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: ageController,
+                    decoration: const InputDecoration(hintText: "age"),
+                  ),
+                ],
               ),
             ),
+            // Text Field
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: ageController,
-                decoration: const InputDecoration(hintText: "age"),
-              ),
-            ),
-            const SizedBox(height: 10),
+            // INSERT
             CRUDButton(
               buttonName: 'Insert Data',
               onTap: () async {
-                await DbHandler().insertData(
-                  ModelClass(
-                    name: nameController.text,
-                    age: int.parse(ageController.text),
-                  ),
-                );
+                await DbHandler()
+                    .insertData(
+                      ModelClass(
+                        name: nameController.text,
+                        age: int.parse(ageController.text),
+                      ),
+                    )
+                    .then(
+                      (value) => (value) {
+                        print("Inserted DATA");
+                      },
+                    );
+                ;
               },
             ),
+            // INSERT
             const SizedBox(height: 10),
+            // READ
             CRUDButton(
               buttonName: 'Read',
               onTap: () async {
-                final data = await DbHandler().fetchtData();
-                print(data[0].name);
+                await DbHandler().fetchtData().then(
+                      (value) => (value) {
+                        print("Reading DATA");
+                      },
+                    );
+
+                // Navigate
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DataPage(),
+                  ),
+                );
+                // Navigate
               },
             ),
+            // READ
             const SizedBox(height: 10),
+            // UPDATE
             CRUDButton(
               buttonName: 'Update',
               onTap: () async {
-                await DbHandler().updateData(
-                  ModelClass(
-                    id: 1,
-                    name: 'Safeen',
-                    age: 17,
-                  ),
-                );
-                print("data Updated");
+                await DbHandler()
+                    .updateData(
+                      ModelClass(
+                        id: 1,
+                        name: 'Safeen',
+                        age: 17,
+                      ),
+                    )
+                    .then(
+                      (value) => (value) {
+                        print("data Updated");
+                      },
+                    );
               },
             ),
+            // UPDATE
             const SizedBox(height: 10),
+            // DELETE
             CRUDButton(
               buttonName: 'Delete',
               onTap: () async {
-                await DbHandler().deleteData(2);
-                print("data Deleted");
+                await DbHandler().deleteData(2).then(
+                      (value) => (value) {
+                        print("DATA Deleted");
+                      },
+                    );
               },
             ),
+            // DELETE
             const SizedBox(height: 10),
           ],
         ),

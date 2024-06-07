@@ -34,22 +34,22 @@ class DbHandler {
   }
 
   // Create DATA in DATABASE
-  insertData(ModelClass modelClass) async {
+  Future<int> insertData(ModelClass modelClass) async {
     Database? db = await database;
-    db!.insert('DatabaseTable', modelClass.toMap());
+    return db!.insert('DatabaseTable', modelClass.toMap());
   }
 
   // Fetch or Read DATABASE
-  fetchtData() async {
+  Future<List<ModelClass>> fetchtData() async {
     Database? db = await database;
     final list = await db!.query('DatabaseTable');
     return list.map((map) => ModelClass.fromMap(map)).toList();
   }
 
   // Delete DATABASE
-  deleteData(int id) async {
+  Future<int> deleteData(int id) async {
     Database? db = await database;
-    await db!.delete(
+    return await db!.delete(
       'DatabaseTable',
       where: 'id = ?',
       whereArgs: [id],
@@ -57,9 +57,9 @@ class DbHandler {
   }
 
   // Delete DATABASE
-  updateData(ModelClass modelClass) async {
+  Future<int> updateData(ModelClass modelClass) async {
     Database? db = await database;
-    await db!.update(
+    return await db!.update(
       'DatabaseTable',
       modelClass.toMap(),
       where: 'id = ?',
