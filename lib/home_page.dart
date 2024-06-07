@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             CRUDButton(
               buttonName: 'Create',
               onTap: () async {
-                await DbHandler().insertData(5, "Ashtar", 9);
+                await DbHandler().insertData(6, "Ashtar", 9);
               },
             ),
             const SizedBox(height: 10),
